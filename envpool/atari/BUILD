@@ -116,8 +116,6 @@ py_test(
         ":atari",
         ":atari_registration",
         requirement("numpy"),
-        requirement("jax"),
-        requirement("dm-env"),
         requirement("absl-py"),
         requirement("opencv-python-headless"),
     ],

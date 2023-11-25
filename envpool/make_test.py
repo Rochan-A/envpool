@@ -16,7 +16,6 @@
 import pprint
 from typing import List
 
-import dm_env
 import gym
 import gymnasium
 from absl.testing import absltest
@@ -43,7 +42,6 @@ class _MakeTest(absltest.TestCase):
     print(env_gym)
     self.assertIsInstance(env_gymnasium, gymnasium.Env)
     self.assertIsInstance(env_gym, gym.Env)
-    self.assertIsInstance(env_dm, dm_env.Environment)
     self.assertEqual(spec.action_space.n, 18)
     self.assertEqual(env_gym.action_space.n, 18)
     self.assertEqual(env_dm.action_spec().num_values, 18)
@@ -80,7 +78,6 @@ class _MakeTest(absltest.TestCase):
       print(env_gym)
       print(env_gymnasium)
       self.assertIsInstance(env_gym, gym.Env)
-      self.assertIsInstance(env_dm, dm_env.Environment)
       self.assertIsInstance(env_gymnasium, gymnasium.Env)
       env_dm.reset()
       env_gym.reset()

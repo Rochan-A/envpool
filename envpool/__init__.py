@@ -17,7 +17,6 @@ import envpool.entry  # noqa: F401
 from envpool.registration import (
   list_all_envs,
   make,
-  make_dm,
   make_gym,
   make_gymnasium,
   make_spec,
@@ -28,7 +27,6 @@ __version__ = "0.8.4"
 __all__ = [
   "register",
   "make",
-  "make_dm",
   "make_gym",
   "make_gymnasium",
   "make_spec",
