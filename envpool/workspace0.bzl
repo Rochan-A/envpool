@@ -111,17 +111,6 @@ def workspace():
 
     maybe(
         http_archive,
-        name = "com_justbuchanan_rules_qt",
-        sha256 = "6b42a58f062b3eea10ada5340cd8f63b47feb986d16794b0f8e0fde750838348",
-        strip_prefix = "bazel_rules_qt-3196fcf2e6ee81cf3a2e2b272af3d4259b84fcf9",
-        urls = [
-            "https://github.com/justbuchanan/bazel_rules_qt/archive/3196fcf2e6ee81cf3a2e2b272af3d4259b84fcf9.tar.gz",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/justbuchanan/bazel_rules_qt/3196fcf2e6ee81cf3a2e2b272af3d4259b84fcf9.tar.gz",
-        ],
-    )
-
-    maybe(
-        http_archive,
         name = "glibc_version_header",
         sha256 = "57db74f933b7a9ea5c653498640431ce0e52aaef190d6bb586711ec4f8aa2b9e",
         strip_prefix = "glibc_version_header-0.1/version_headers/",
@@ -194,30 +183,6 @@ def workspace():
 
     maybe(
         http_archive,
-        name = "ale",
-        sha256 = "28960616cd89c18925ced7bbdeec01ab0b2ebd2d8ce5b7c88930e97381b4c3b5",
-        strip_prefix = "Arcade-Learning-Environment-0.8.1",
-        urls = [
-            "https://github.com/mgbellemare/Arcade-Learning-Environment/archive/refs/tags/v0.8.1.tar.gz",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/mgbellemare/Arcade-Learning-Environment/v0.8.1.tar.gz",
-        ],
-        build_file = "//third_party/ale:ale.BUILD",
-    )
-
-    maybe(
-        http_archive,
-        name = "atari_roms",
-        sha256 = "e39e9fc379fe3f336911d928ce0a52e6ff6861258906efc5e849390867ff35f5",
-        urls = [
-            "https://roms8.s3.us-east-2.amazonaws.com/Roms.tar.gz",
-            "https://cdn.sail.sea.com/sail/Roms.tar.gz",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/atari/Roms.tar.gz",
-        ],
-        build_file = "//third_party/atari_roms:atari_roms.BUILD",
-    )
-
-    maybe(
-        http_archive,
         name = "libjpeg_turbo",
         sha256 = "b3090cd37b5a8b3e4dbd30a1311b3989a894e5d3c668f14cbc6739d77c9402b7",
         strip_prefix = "libjpeg-turbo-2.0.5",
@@ -274,130 +239,6 @@ def workspace():
             "https://boostorg.jfrog.io/artifactory/main/release/1.83.0/source/boost_1_83_0.tar.bz2",
             "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/boost/boost_1_83_0.tar.bz2",
         ],
-    )
-
-    maybe(
-        http_archive,
-        name = "freedoom",
-        sha256 = "f42c6810fc89b0282de1466c2c9c7c9818031a8d556256a6db1b69f6a77b5806",
-        strip_prefix = "freedoom-0.12.1/",
-        urls = [
-            "https://github.com/freedoom/freedoom/releases/download/v0.12.1/freedoom-0.12.1.zip",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/freedoom/freedoom/freedoom-0.12.1.zip",
-        ],
-        build_file = "//third_party/freedoom:freedoom.BUILD",
-    )
-
-    maybe(
-        http_archive,
-        name = "vizdoom",
-        sha256 = "e379a242ada7e1028b7a635da672b0936d99da3702781b76a4400b83602d78c4",
-        strip_prefix = "ViZDoom-1.1.13/src/vizdoom/",
-        urls = [
-            "https://github.com/Farama-Foundation/ViZDoom/archive/refs/tags/1.1.13.tar.gz",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/Farama-Foundation/ViZDoom/1.1.13.tar.gz",
-        ],
-        build_file = "//third_party/vizdoom:vizdoom.BUILD",
-        patches = [
-            "//third_party/vizdoom:sdl_thread.patch",
-        ],
-    )
-
-    maybe(
-        http_archive,
-        name = "vizdoom_lib",
-        sha256 = "e379a242ada7e1028b7a635da672b0936d99da3702781b76a4400b83602d78c4",
-        strip_prefix = "ViZDoom-1.1.13/",
-        urls = [
-            "https://github.com/Farama-Foundation/ViZDoom/archive/refs/tags/1.1.13.tar.gz",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/Farama-Foundation/ViZDoom/1.1.13.tar.gz",
-        ],
-        build_file = "//third_party/vizdoom_lib:vizdoom_lib.BUILD",
-    )
-
-    maybe(
-        http_archive,
-        name = "vizdoom_extra_maps",
-        sha256 = "325440fe566ff478f35947c824ea5562e2735366845d36c5a0e40867b59f7d69",
-        strip_prefix = "DirectFuturePrediction-b4757769f167f1bd7fb1ece5fdc6d874409c68a9/",
-        urls = [
-            "https://github.com/isl-org/DirectFuturePrediction/archive/b4757769f167f1bd7fb1ece5fdc6d874409c68a9.zip",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/isl-org/DirectFuturePrediction/b4757769f167f1bd7fb1ece5fdc6d874409c68a9.zip",
-        ],
-        build_file = "//third_party/vizdoom_extra_maps:vizdoom_extra_maps.BUILD",
-    )
-
-    maybe(
-        http_archive,
-        name = "mujoco",
-        sha256 = "d1cb3a720546240d894cd315b7fd358a2b96013a1f59b6d718036eca6f6edac2",
-        strip_prefix = "mujoco-2.2.1",
-        urls = [
-            "https://github.com/deepmind/mujoco/releases/download/2.2.1/mujoco-2.2.1-linux-x86_64.tar.gz",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/deepmind/mujoco/mujoco-2.2.1-linux-x86_64.tar.gz",
-        ],
-        build_file = "//third_party/mujoco:mujoco.BUILD",
-    )
-
-    maybe(
-        http_archive,
-        name = "mujoco_gym_xml",
-        sha256 = "96a5fc8345bd92b73a15fc25112d53a294f86fcace1c5e4ef7f0e052b5e1bdf4",
-        strip_prefix = "gym-0.26.2/gym/envs/mujoco",
-        urls = [
-            "https://github.com/openai/gym/archive/refs/tags/0.26.2.tar.gz",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/openai/gym/0.26.2.tar.gz",
-        ],
-        build_file = "//third_party/mujoco_gym_xml:mujoco_gym_xml.BUILD",
-    )
-
-    maybe(
-        http_archive,
-        name = "mujoco_dmc_xml",
-        sha256 = "fb8d57cbeb92bebe56a992dab8401bc00b3bff61b62526eb563854adf3dfb595",
-        strip_prefix = "dm_control-1.0.9/dm_control",
-        urls = [
-            "https://github.com/deepmind/dm_control/archive/refs/tags/1.0.9.tar.gz",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/deepmind/dm_control/1.0.9.tar.gz",
-        ],
-        build_file = "//third_party/mujoco_dmc_xml:mujoco_dmc_xml.BUILD",
-    )
-
-    maybe(
-        http_archive,
-        name = "box2d",
-        sha256 = "d6b4650ff897ee1ead27cf77a5933ea197cbeef6705638dd181adc2e816b23c2",
-        strip_prefix = "box2d-2.4.1",
-        urls = [
-            "https://github.com/erincatto/box2d/archive/refs/tags/v2.4.1.tar.gz",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/erincatto/box2d/v2.4.1.tar.gz",
-        ],
-        build_file = "//third_party/box2d:box2d.BUILD",
-    )
-
-    # Atari/VizDoom pretrained weight for testing pipeline
-
-    maybe(
-        http_archive,
-        name = "pretrain_weight",
-        sha256 = "b1b64e0db84cf7317c2a96b27f549147dfcb4074ed2d799334c23a067075ac1c",
-        urls = [
-            "https://cdn.sail.sea.com/sail/pretrain.tar.gz",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/pretrain.tar.gz",
-        ],
-        build_file = "//third_party/pretrain_weight:pretrain_weight.BUILD",
-    )
-
-    maybe(
-        http_archive,
-        name = "procgen",
-        sha256 = "d5620394418b885f9028f98759189a5f78bc4ba71fb6605f910ae22fca870c8e",
-        strip_prefix = "procgen-0.10.8/procgen",
-        urls = [
-            "https://github.com/Trinkle23897/procgen/archive/refs/tags/0.10.8.tar.gz",
-            "https://ml.cs.tsinghua.edu.cn/~jiayi/envpool/Trinkle23897/procgen/0.10.8.tar.gz",
-        ],
-        build_file = "//third_party/procgen:procgen.BUILD",
     )
 
     maybe(
