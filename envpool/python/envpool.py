@@ -20,7 +20,6 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 import optree
-from dm_env import TimeStep
 
 from .protocol import EnvPool, EnvSpec
 
@@ -123,7 +122,7 @@ class EnvPoolMixin(ABC):
     self: EnvPool,
     reset: bool = False,
     return_info: bool = True,
-  ) -> Union[TimeStep, Tuple]:
+  ) -> Tuple:
     """Recv a batch state from EnvPool."""
     state_list = self._recv()
     return self._to(state_list, reset, return_info)
@@ -136,7 +135,7 @@ class EnvPoolMixin(ABC):
     self: EnvPool,
     action: Union[Dict[str, Any], np.ndarray],
     env_id: Optional[np.ndarray] = None,
-  ) -> Union[TimeStep, Tuple]:
+  ) -> Tuple:
     """Perform one step with multiple environments in EnvPool."""
     self.send(action, env_id)
     return self.recv(reset=False, return_info=True)
@@ -144,7 +143,7 @@ class EnvPoolMixin(ABC):
   def reset(
     self: EnvPool,
     env_id: Optional[np.ndarray] = None,
-  ) -> Union[TimeStep, Tuple]:
+  ) -> Tuple:
     """Reset envs in env_id.
 
     This behavior is not defined in async mode.

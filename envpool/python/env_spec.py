@@ -18,12 +18,10 @@ from abc import ABC, ABCMeta
 from collections import namedtuple
 from typing import Any, Dict, List, NamedTuple, Optional, Tuple, Type, Union
 
-import dm_env
 import gym
 import gymnasium
 
 from .data import (
-  dm_spec_transform,
   gym_spec_transform,
   gymnasium_spec_transform,
   to_namedtuple,
@@ -72,49 +70,6 @@ class EnvSpecMixin(ABC):
     """
     action_spec = [ArraySpec(*s) for s in self._action_spec]
     return dict(zip(self._action_keys, action_spec))
-
-  def observation_spec(self: EnvSpec) -> Tuple:
-    """Convert internal state_spec to dm_env compatible format.
-
-    Returns:
-      observation_spec: A namedtuple (maybe nested) that contains all keys
-        that start with ``obs`` or ``info`` with their corresponding specs.
-    """
-    spec = self.state_array_spec
-    spec = {
-      k.replace("obs:", "").replace("info:", ""):
-        dm_spec_transform(k.replace(":", ".").split(".")[-1], v, "obs")
-      for k, v in spec.items()
-      if k.startswith("obs") or k.startswith("info")
-    }
-    return to_namedtuple("State", to_nested_dict(spec))
-
-  def action_spec(self: EnvSpec) -> Union[dm_env.specs.Array, Tuple]:
-    """Convert internal action_spec to dm_env compatible format.
-
-    Returns:
-      action_spec: A single dm_env.specs.Array or a dict (maybe nested) that
-        contains all keys that start with ``action`` with their corresponding
-        specs.
-
-    Note:
-      If the original action_spec has a length of 3 ("env_id",
-        "players.env_id", *), it returns the last spec instead of all for
-        simplicity.
-    """
-    spec = self.action_array_spec
-    if len(spec) == 3:
-      # only env_id, players.env_id, action
-      spec.pop("env_id")
-      spec.pop("players.env_id")
-      return dm_spec_transform(
-        list(spec.keys())[0],
-        list(spec.values())[0], "act"
-      )
-    spec = {
-      k: dm_spec_transform(k.split(".")[-1], v, "act") for k, v in spec.items()
-    }
-    return to_namedtuple("Action", to_nested_dict(spec))
 
   @property
   def observation_space(self: EnvSpec) -> Union[gym.Space, Dict[str, Any]]:

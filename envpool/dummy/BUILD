@@ -17,13 +17,6 @@ load("@pybind11_bazel//:build_defs.bzl", "pybind_extension")
 
 package(default_visibility = ["//visibility:public"])
 
-py_library(
-    name = "dummy",
-    srcs = ["__init__.py"],
-    data = [":dummy_envpool.so"],
-    deps = ["//envpool/python:api"],
-)
-
 cc_library(
     name = "dummy_envpool_h",
     hdrs = ["dummy_envpool.h"],
@@ -31,6 +24,35 @@ cc_library(
         "//envpool/core:async_envpool",
         "//envpool/core:env",
         "//envpool/core:env_spec",
+    ],
+)
+
+pybind_extension(
+    name = "dummy_envpool",
+    srcs = [
+        "dummy_envpool.cc",
+    ],
+    linkopts = [
+        "-ldl",
+    ],
+    deps = [
+        ":dummy_envpool_h",
+        "//envpool/core:py_envpool",
+    ],
+)
+
+py_library(
+    name = "dummy",
+    srcs = ["__init__.py"],
+    data = [":dummy_envpool.so"],
+    deps = ["//envpool/python:api"],
+)
+
+py_library(
+    name = "dummy_registration",
+    srcs = ["registration.py"],
+    deps = [
+        "//envpool:registration",
     ],
 )
 
@@ -51,28 +73,5 @@ py_test(
     deps = [
         requirement("numpy"),
         requirement("absl-py"),
-    ],
-)
-
-pybind_extension(
-    name = "dummy_envpool",
-    srcs = [
-        "dummy_envpool.cc",
-    ],
-    linkopts = [
-        "-ldl",
-    ],
-    deps = [
-        ":dummy_envpool_h",
-        "//envpool/core:py_envpool",
-    ],
-)
-
-
-py_library(
-    name = "dummy_registration",
-    srcs = ["registration.py"],
-    deps = [
-        "//envpool:registration",
     ],
 )

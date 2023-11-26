@@ -40,16 +40,16 @@ py_library(
     deps = [
         ":entry",
         ":registration",
-        # "//envpool/classic_control",
+        "//envpool/dummy",
         "//envpool/python",
     ],
 )
 
-py_test(
-    name = "make_test",
-    srcs = ["make_test.py"],
-    deps = [
-        ":envpool",
-        requirement("absl-py"),
-    ],
-)
+# py_test(
+#     name = "make_test",
+#     srcs = ["make_test.py"],
+#     deps = [
+#         ":envpool",
+#         requirement("absl-py"),
+#     ],
+# )

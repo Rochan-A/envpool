@@ -16,7 +16,6 @@
 from collections import namedtuple
 from typing import Any, Dict, List, Tuple, Type
 
-import dm_env
 import gym
 import gymnasium
 import numpy as np
@@ -64,27 +63,6 @@ def to_namedtuple(name: str, hdict: Dict) -> Tuple:
       to_namedtuple(k, v) if isinstance(v, Dict) else v
       for k, v in hdict.items()
     ]
-  )
-
-
-def dm_spec_transform(
-  name: str, spec: ArraySpec, spec_type: str
-) -> dm_env.specs.Array:
-  """Transform ArraySpec to dm_env compatible specs."""
-  if np.prod(np.abs(spec.shape)) == 1 and \
-      np.isclose(spec.minimum, 0) and spec.maximum < ACTION_THRESHOLD:
-    # special treatment for discrete action space
-    return dm_env.specs.DiscreteArray(
-      name=name,
-      dtype=spec.dtype,
-      num_values=int(spec.maximum - spec.minimum + 1),
-    )
-  return dm_env.specs.BoundedArray(
-    name=name,
-    shape=[s for s in spec.shape if s != -1],
-    dtype=spec.dtype,
-    minimum=spec.minimum,
-    maximum=spec.maximum,
   )
 
 

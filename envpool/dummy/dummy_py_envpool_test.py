@@ -16,7 +16,7 @@
 import os
 import time
 
-import numpy as np
+# import numpy as np
 from absl import logging
 from absl.testing import absltest
 

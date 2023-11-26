@@ -25,10 +25,8 @@ from typing import (
   Union,
 )
 
-import dm_env
 import gym
 import numpy as np
-from dm_env import TimeStep
 
 try:
   from typing import Protocol
@@ -77,12 +75,6 @@ class EnvSpec(Protocol):
   @property
   def action_array_spec(self) -> Dict[str, Any]:
     """Specs of the actions of the environment in ArraySpec format."""
-
-  def observation_spec(self) -> Dict[str, Any]:
-    """Specs of the observations of the environment in dm_env format."""
-
-  def action_spec(self) -> Union[dm_env.specs.Array, Dict[str, Any]]:
-    """Specs of the actions of the environment in dm_env format."""
 
   @property
   def observation_space(self) -> Dict[str, Any]:
@@ -169,7 +161,7 @@ class EnvPool(Protocol):
     state: List[np.ndarray],
     reset: bool,
     return_info: bool,
-  ) -> Union[TimeStep, Tuple]:
+  ) -> Tuple:
     """A switch of to_dm and to_gym for output state."""
 
   @property
@@ -187,12 +179,6 @@ class EnvPool(Protocol):
   @property
   def action_space(self) -> Union[gym.Space, Dict[str, Any]]:
     """Gym action space."""
-
-  def observation_spec(self) -> Tuple:
-    """Dm observation spec."""
-
-  def action_spec(self) -> Union[dm_env.specs.Array, Tuple]:
-    """Dm action spec."""
 
   def seed(self, seed: Optional[Union[int, List[int]]] = None) -> None:
     """Set the seed for all environments."""
@@ -212,7 +198,7 @@ class EnvPool(Protocol):
     self,
     reset: bool = False,
     return_info: bool = True,
-  ) -> Union[TimeStep, Tuple]:
+  ) -> Tuple:
     """Envpool recv wrapper."""
 
   def async_reset(self) -> None:
@@ -222,13 +208,13 @@ class EnvPool(Protocol):
     self,
     action: Union[Dict[str, Any], np.ndarray],
     env_id: Optional[np.ndarray] = None,
-  ) -> Union[TimeStep, Tuple]:
+  ) -> Tuple:
     """Envpool step interface that performs send/recv."""
 
   def reset(
     self,
     env_id: Optional[np.ndarray] = None,
-  ) -> Union[TimeStep, Tuple]:
+  ) -> Tuple:
     """Envpool reset interface."""
 
   def xla(self) -> Tuple[Any, Callable, Callable, Callable]:

@@ -13,7 +13,7 @@
 # limitations under the License.
 """Entry point for all envs' registration."""
 
-try:
-  import envpool.dummy.registration  # noqa: F401
-except ImportError:
-  pass
+# try:
+import envpool.dummy.registration  # noqa: F401
+# except ImportError:
+#   pass

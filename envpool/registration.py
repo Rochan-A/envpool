@@ -32,8 +32,7 @@ class EnvRegistry:
     self.envpools: Dict[str, Dict[str, Tuple[str, str]]] = {}
 
   def register(
-    self, task_id: str, import_path: str, spec_cls: str, dm_cls: str,
-    gym_cls: str, gymnasium_cls: str, **kwargs: Any
+    self, task_id: str, import_path: str, spec_cls: str, gym_cls: str, gymnasium_cls: str, **kwargs: Any
   ) -> None:
     """Register EnvSpec and EnvPool in global EnvRegistry."""
     assert task_id not in self.specs
@@ -41,7 +40,6 @@ class EnvRegistry:
       kwargs["base_path"] = base_path
     self.specs[task_id] = (import_path, spec_cls, kwargs)
     self.envpools[task_id] = {
-      "dm": (import_path, dm_cls),
       "gym": (import_path, gym_cls),
       "gymnasium": (import_path, gymnasium_cls)
     }
@@ -60,15 +58,11 @@ class EnvRegistry:
 
     assert task_id in self.specs, \
       f"{task_id} is not supported, `envpool.list_all_envs()` may help."
-    assert env_type in ["dm", "gym", "gymnasium"]
+    assert env_type in ["gym", "gymnasium"]
 
     spec = self.make_spec(task_id, **kwargs)
     import_path, envpool_cls = self.envpools[task_id][env_type]
     return getattr(importlib.import_module(import_path), envpool_cls)(spec)
-
-  def make_dm(self, task_id: str, **kwargs: Any) -> Any:
-    """Make dm_env compatible envpool."""
-    return self.make(task_id, "dm", **kwargs)
 
   def make_gym(self, task_id: str, **kwargs: Any) -> Any:
     """Make gym.Env compatible envpool."""
