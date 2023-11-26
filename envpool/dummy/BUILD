@@ -15,6 +15,8 @@
 load("@pip_requirements//:requirements.bzl", "requirement")
 load("@pybind11_bazel//:build_defs.bzl", "pybind_extension")
 
+package(default_visibility = ["//visibility:public"])
+
 py_library(
     name = "dummy",
     srcs = ["__init__.py"],
@@ -63,5 +65,14 @@ pybind_extension(
     deps = [
         ":dummy_envpool_h",
         "//envpool/core:py_envpool",
+    ],
+)
+
+
+py_library(
+    name = "dummy_registration",
+    srcs = ["registration.py"],
+    deps = [
+        "//envpool:registration",
     ],
 )

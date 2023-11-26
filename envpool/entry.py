@@ -14,11 +14,6 @@
 """Entry point for all envs' registration."""
 
 try:
-  import envpool.atari.registration  # noqa: F401
-except ImportError:
-  pass
-
-try:
-  import envpool.classic_control.registration  # noqa: F401
+  import envpool.dummy.registration  # noqa: F401
 except ImportError:
   pass

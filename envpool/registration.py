@@ -108,7 +108,6 @@ class EnvRegistry:
 registry = EnvRegistry()
 register = registry.register
 make = registry.make
-make_dm = registry.make_dm
 make_gym = registry.make_gym
 make_gymnasium = registry.make_gymnasium
 make_spec = registry.make_spec

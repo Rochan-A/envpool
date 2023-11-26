@@ -101,7 +101,7 @@ bazel-debug: bazel-install bazel-pip-requirement-dev
 	cp bazel-bin/setup.runfiles/$(PROJECT_NAME)/dist/*.whl ./dist
 
 bazel-build: bazel-install bazel-pip-requirement-dev
-	bazel --output_user_root=/home/rochan/tmp run --repository_cache=/tmp --sandbox_writable_path=$HOME/.ccache $(BAZELOPT) //:setup --config=test -- bdist_wheel
+	bazel --output_user_root=/workspace/rochan/tmp run --repository_cache=/workspace/rochan/tmp --sandbox_writable_path=/mnt/data/rochan/tmp/.ccache $(BAZELOPT) //:setup --config=test -- bdist_wheel
 	mkdir -p dist
 	cp bazel-bin/setup.runfiles/$(PROJECT_NAME)/dist/*.whl ./dist
 
@@ -111,7 +111,7 @@ bazel-release: bazel-install bazel-pip-requirement-release
 	cp bazel-bin/setup.runfiles/$(PROJECT_NAME)/dist/*.whl ./dist
 
 bazel-test: bazel-install bazel-pip-requirement-dev
-	bazel --output_user_root=/home/rochan/tmp test --repository_cache=/tmp --sandbox_writable_path=$HOME/.ccache --test_output=all $(BAZELOPT) //... --config=test --spawn_strategy=local --color=yes
+	bazel --output_user_root=/workspace/rochan/tmp test --repository_cache=/workspace/rochan/tmp --sandbox_writable_path=/mnt/data/rochan/tmp/.ccache --test_output=all $(BAZELOPT) //... --config=test --spawn_strategy=local --color=yes
 
 bazel-clean: bazel-install
 	bazel clean --expunge
