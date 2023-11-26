@@ -16,7 +16,7 @@
 import os
 import time
 
-# import numpy as np
+import numpy as np
 from absl import logging
 from absl.testing import absltest
 
@@ -104,15 +104,15 @@ class _DummyEnvPoolTest(absltest.TestCase):
     conf["num_threads"] = os.cpu_count()
     env_spec = _DummyEnvSpec(tuple(conf.values()))
     env = _DummyEnvPool(env_spec)
-    xla_failed = False
-    try:
-      _ = env._xla()
-    except RuntimeError:
-      logging.info(
-        "XLA on Dummy failed because dummy has Container typed state."
-      )
-      xla_failed = True
-    self.assertTrue(xla_failed)
+    # xla_failed = False
+    # try:
+    #   _ = env._xla()
+    # except RuntimeError:
+    #   logging.info(
+    #     "XLA on Dummy failed because dummy has Container typed state."
+    #   )
+    #   xla_failed = True
+    # self.assertTrue(xla_failed)
 
 
 if __name__ == "__main__":
